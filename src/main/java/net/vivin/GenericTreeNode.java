@@ -71,6 +71,18 @@ public class GenericTreeNode<T> {
     public GenericTreeNode<T> getChildAt(int index) throws IndexOutOfBoundsException {
         return children.get(index);
     }
+	
+	public Set<GenericTreeNode<T>> getAllLeafNodes() {
+        Set<GenericTreeNode<T>> leafNodes = new HashSet<GenericTreeNode<T>>();
+        if (this.children.isEmpty()) {
+            leafNodes.add(this);
+        } else {
+            for (GenericTreeNode<T> child : this.children) {
+                leafNodes.addAll(child.getAllLeafNodes());
+            }
+        }
+        return leafNodes;
+    }
 
     public T getData() {
         return this.data;
